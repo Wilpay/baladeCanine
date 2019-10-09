@@ -2,14 +2,15 @@
 {% block title %}{{ parent() }} | Accueil{% endblock %}
 {% block body %}
 
-    <div class="card">
-        <div class="card-header">
-            Bienvenue
-        </div>
-        <div class="card-body">
-            <h5 class="card-title">Ouverture ?</h5>
-            <p class="card-text">Toutes les balades sont créées par nos utilisateurs.</p>
-            <a href="#" class="btn btn-primary">Voir</a>
+
+    <img class="rounded mx-auto d-block" src="images/logo.png">
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container">
+            <h1 class="display-4">Bienvenue</h1>
+            <p class="lead">Balade Canine vous présentent toutes les sorties réalisées par ses membres.</p>
+            <button type="button" class="btn btn-outline-dark"><i class="fas fa-arrow-right"></i></button>
         </div>
     </div>
+
+
 {% endblock %}

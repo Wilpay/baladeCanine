@@ -20,7 +20,7 @@ class MainController extends Controller
     }
 
     /**
-     * @Route("/inscription", name="inscription")
+     * @Route("/connexion", name="connexion")
      */
     public function Inscription(EntityManagerInterface $em, SessionInterface $session) {
 
