@@ -1,0 +1,92 @@
+{% extends('base.html.twig') %}
+{% block title %}{{ parent() }} | Inscription{% endblock %}
+{% block body %}
+
+
+    <div class="card">
+        <div class="card-header">
+            <h1>Inscription</h1>
+        </div>
+        <div class="card-body">
+            <p class="card-text">
+                {{ form_start(form) }}
+                {{ form_errors(form) }}
+            <div class="row mb-2">
+                <div class="font-weight-bold col-12 col-md-4 m-auto">Civilité:</div>
+                <div class="col-12 col-md-8">
+                    {{ form_widget(form.sexe) }}
+                    {{ form_errors(form.sexe) }}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="font-weight-bold col-12 col-md-4 m-auto">Nom:</div>
+                <div class="col-12 col-md-8">
+                    {{ form_widget(form.nom) }}
+                    {{ form_errors(form.nom) }}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="font-weight-bold col-12 col-md-4 m-auto">Prénom:</div>
+                <div class="col-12 col-md-8">
+                    {{ form_widget(form.prenom) }}
+                    {{ form_errors(form.prenom) }}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="font-weight-bold col-12 col-md-4 m-auto">Mail:</div>
+                <div class="col-12 col-md-8">
+                    {{ form_widget(form.mail) }}
+                    {{ form_errors(form.mail) }}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="font-weight-bold col-12 col-md-4 m-auto">Téléphone:</div>
+                <div class="col-12 col-md-8">
+                    {{ form_widget(form.telephone) }}
+                    {{ form_errors(form.telephone) }}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="font-weight-bold col-12 col-md-4 m-auto">Adresse:</div>
+                <div class="col-12 col-md-8">
+                    {{ form_widget(form.adresse) }}
+                    {{ form_errors(form.adresse) }}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="font-weight-bold col-12 col-md-4 m-auto">Code Postal:</div>
+                <div class="col-12 col-md-8">
+                    {{ form_widget(form.codePostal) }}
+                    {{ form_errors(form.codePostal) }}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="font-weight-bold col-12 col-md-4 m-auto">Ville:</div>
+                <div class="col-12 col-md-8">
+                    {{ form_widget(form.ville) }}
+                    {{ form_errors(form.ville) }}
+                </div>
+            </div>
+            <div class="row mb-2">
+                <div class="font-weight-bold col-12 col-md-4 m-auto">Mot de passe:</div>
+                <div class="col-12 col-md-8">
+                    {{ form_widget(form.passwordPlain.first) }}
+                    {{ form_errors(form.passwordPlain.first) }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="font-weight-bold col-12 col-md-4 m-auto">Confirmation:</div>
+                <div class="col-12 col-md-8">
+                    {{ form_widget(form.passwordPlain.second) }}
+                    {{ form_errors(form.passwordPlain.second) }}
+                </div>
+            </div>
+
+            {{ form_widget(form.submit, {'attr': {'class': 'btn btn-block btn-success font-weight-bold mt-5'}}, {'label': 'Inscrire'}) }}
+            {{ form_end(form) }}
+            </p>
+        </div>
+    </div>
+
+
+{% endblock %}

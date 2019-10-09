@@ -5,6 +5,14 @@
 
     <img class="rounded mx-auto d-block" src="images/logo.png">
     <div class="jumbotron jumbotron-fluid">
+
+        {% for label, messages in app.flashes %}
+            <div class="alert alert-{{ label }}" role="alert">
+                {% for message in messages %}
+                    {{ message }}
+                {% endfor %}
+            </div>
+        {% endfor %}
         <div class="container">
             <h1 class="display-4">Bienvenue</h1>
             <p class="lead">Balade Canine vous présentent toutes les sorties réalisées par ses membres.</p>

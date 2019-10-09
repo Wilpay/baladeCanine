@@ -17,48 +17,117 @@
 </head>
 <body>
 {% block menu %}
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a class="navbar-brand" href="#"><img src="images/logo.png" width="50" height="50"></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+    <!--  Si utilisateur connecté -->
+    {% if app.user %}
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{{ path('home') }}"><img src="images/logo.png" width="50" height="50"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Accueil <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Sorties
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Créer une sortie</a>
-                        <a class="dropdown-item" href="#">Voir les sorties</a>
-                    </div>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Boutique
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Acheter un article</a>
-                        <a class="dropdown-item" href="#">Vendre un article</a>
-                    </div>
-                </li>
-            </ul>
-            <form class="form-inline my-2 my-lg-0">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Espace Partenaire</a>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{{ path('home') }}">Accueil <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Sorties
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Créer une sortie</a>
+                            <a class="dropdown-item" href="#">Voir les sorties</a>
+                        </div>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Boutique
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <a class="dropdown-item" href="#">Acheter un article</a>
+                            <a class="dropdown-item" href="#">Vendre un article</a>
+                        </div>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" data-toggle="modal" data-target="#connexion" href="#">Connexion</a>
+                        <a class="nav-link" href="#">Question ? <span class="sr-only"></span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contact<span class="sr-only"></span></a>
                     </li>
                 </ul>
-            </form>
-        </div>
-    </nav>
+                <form class="form-inline my-2 my-lg-0">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Espace Partenaire</a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Bienvenue {{ app.user.nom }}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ path('profil') }}">Profil</a>
+                                <a class="dropdown-item" href="#">Ajouter Animaux</a>
+                                <a class="dropdown-item" href="{{ path('deconnexion') }}">Déconnexion</a>
+                            </div>
+                        </li>
+                    </ul>
+                </form>
+            </div>
+        </nav>
+        {% else %}
+            <!--  Si utilisateur non connecté -->
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <a class="navbar-brand" href="{{ path('home') }}"><img src="images/logo.png" width="50" height="50"></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{ path('home') }}">Accueil <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Sorties
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Créer une sortie</a>
+                                <a class="dropdown-item" href="#">Voir les sorties</a>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Boutique
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="#">Acheter un article</a>
+                                <a class="dropdown-item" href="#">Vendre un article</a>
+                            </div>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Question ? <span class="sr-only"></span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Contact<span class="sr-only"></span></a>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link" href="#">Espace Partenaire</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="modal" data-target="#connexion" href="#">Connexion</a>
+                            </li>
+                        </ul>
+                    </form>
+                </div>
+            </nav>
+    {% endif %}
+
 
 
     <div class="modal fade" id="connexion" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -71,10 +140,11 @@
                     </button>
                 </div>
                 <div class="modal-body">
+
                     <form method="post" action="{{ path('connexion') }}">
                         <div class="form-group">
                             <label for="login">Mail:</label>
-                            <input type="text" class="form-control" id="login" name="_username">
+                            <input type="text" class="form-control" id="mail" name="_username">
                         </div>
                         <div class="form-group">
                             <label for="mdp">Mot de passe:</label>
@@ -90,7 +160,7 @@
 
                         <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
                             <div class="btn-group" role="group" aria-label="First group">
-                                <button type="button" class="btn btn-primary">Connexion</button>
+                                <button type="submit" class="btn btn-primary">Connexion</button>
                             </div>
                             <div class="input-group">
                                 <a href="{{ path('inscription') }}"><button type="button" class="btn btn-primary">Inscription</button></a>

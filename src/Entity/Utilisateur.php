@@ -8,9 +8,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
+ * @UniqueEntity(fields={"mail"}, message="Cet email est déja enregistrer!")
  * @ORM\Entity(repositoryClass="App\Repository\UtilisateurRepository")
  */
-class Utilisateur
+class Utilisateur implements UserInterface
 {
     /**
      * @ORM\Id()
@@ -46,7 +47,6 @@ class Utilisateur
     private $telephone;
 
     /**
-     * @Assert\NotBlank(message="Votre mot de passe ne doit pas être vide!")
      *
      * @ORM\Column(type="string", length=255)
      */
@@ -72,6 +72,22 @@ class Utilisateur
      * @ORM\Column(type="string", length=255)
      */
     private $codePostal;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $vip;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $prenium;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Sexe", cascade={"persist", "remove"})
+     */
+    private $sexe;
+
 
     public function getId(): ?int
     {
@@ -211,4 +227,73 @@ class Utilisateur
     }
 
 
+    /**
+     * Returns the salt that was originally used to encode the password.
+     *
+     * This can return null if the password was not encoded using a salt.
+     *
+     * @return string|null The salt
+     */
+    public function getSalt()
+    {
+        // TODO: Implement getSalt() method.
+    }
+
+    /**
+     * Returns the username used to authenticate the user.
+     *
+     * @return string The username
+     */
+    public function getUsername()
+    {
+        // TODO: Implement getUsername() method.
+    }
+
+    /**
+     * Removes sensitive data from the user.
+     *
+     * This is important if, at any given point, sensitive information like
+     * the plain-text password is stored on this object.
+     */
+    public function eraseCredentials()
+    {
+        // TODO: Implement eraseCredentials() method.
+    }
+
+    public function getVip(): ?bool
+    {
+        return $this->vip;
+    }
+
+    public function setVip(bool $vip): self
+    {
+        $this->vip = $vip;
+
+        return $this;
+    }
+
+    public function getPrenium(): ?bool
+    {
+        return $this->prenium;
+    }
+
+    public function setPrenium(bool $prenium): self
+    {
+        $this->prenium = $prenium;
+
+        return $this;
+    }
+
+    public function getSexe(): ?Sexe
+    {
+        return $this->sexe;
+    }
+
+    public function setSexe(?Sexe $sexe): self
+    {
+        $this->sexe = $sexe;
+
+        return $this;
+    }
+    
 }
