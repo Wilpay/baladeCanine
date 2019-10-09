@@ -32,10 +32,6 @@ class Animal
      */
     private $poids;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\CategorieAnimal", cascade={"persist", "remove"})
-     */
-    private $Categorie;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur", inversedBy="animals")
@@ -48,6 +44,11 @@ class Animal
     private $image;
 
     private $file;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CategorieAnimal", inversedBy="animals")
+     */
+    private $categorie;
 
     public function getId(): ?int
     {
@@ -95,18 +96,7 @@ class Animal
 
         return $this;
     }
-
-    public function getCategorie(): ?CategorieAnimal
-    {
-        return $this->Categorie;
-    }
-
-    public function setCategorie(?CategorieAnimal $Categorie): self
-    {
-        $this->Categorie = $Categorie;
-
-        return $this;
-    }
+    
 
     public function getMaitre(): ?Utilisateur
     {
@@ -146,6 +136,18 @@ class Animal
     public function setFile($file): void
     {
         $this->file = $file;
+    }
+
+    public function getCategorie(): ?CategorieAnimal
+    {
+        return $this->categorie;
+    }
+
+    public function setCategorie(?CategorieAnimal $categorie): self
+    {
+        $this->categorie = $categorie;
+
+        return $this;
     }
 
 
