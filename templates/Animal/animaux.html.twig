@@ -21,7 +21,7 @@
                             <p class="card-text"><small class="text-muted">Né le : {{ animal.dateNaissance|date('d/m/Y') }}</small></p>
                         </div>
                         <div class="col-6 text-right">
-                            <button type="button" class="btn btn-outline-dark"><i class="fas fa-arrow-circle-right"></i></button>
+                            <a href="{{ path('modifier', {id:animal.id}) }}" ><button type="button" class="btn btn-outline-dark"><i class="fas fa-arrow-circle-right"></i></button></a>
                         </div>
                     </div>
 
