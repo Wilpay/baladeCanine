@@ -22,9 +22,11 @@ class MainController extends Controller
     /**
      * @Route("/connexion", name="connexion")
      */
-    public function Inscription(EntityManagerInterface $em, SessionInterface $session) {
+    public function Connexion(EntityManagerInterface $em, SessionInterface $session) {
 
         return $this->render("Home/accueil.html.twig");
     }
+
+
 
 }
