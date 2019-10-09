@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -87,6 +89,16 @@ class Utilisateur implements UserInterface
      * @ORM\OneToOne(targetEntity="App\Entity\Sexe", cascade={"persist", "remove"})
      */
     private $sexe;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Animal", mappedBy="maitre")
+     */
+    private $animals;
+
+    public function __construct()
+    {
+        $this->animals = new ArrayCollection();
+    }
 
 
     public function getId(): ?int
@@ -292,6 +304,37 @@ class Utilisateur implements UserInterface
     public function setSexe(?Sexe $sexe): self
     {
         $this->sexe = $sexe;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Animal[]
+     */
+    public function getAnimals(): Collection
+    {
+        return $this->animals;
+    }
+
+    public function addAnimal(Animal $animal): self
+    {
+        if (!$this->animals->contains($animal)) {
+            $this->animals[] = $animal;
+            $animal->setMaitre($this);
+        }
+
+        return $this;
+    }
+
+    public function removeAnimal(Animal $animal): self
+    {
+        if ($this->animals->contains($animal)) {
+            $this->animals->removeElement($animal);
+            // set the owning side to null (unless already changed)
+            if ($animal->getMaitre() === $this) {
+                $animal->setMaitre(null);
+            }
+        }
 
         return $this;
     }

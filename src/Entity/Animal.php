@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\Date;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AnimalRepository")
@@ -22,7 +23,7 @@ class Animal
     private $nom;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      */
     private $dateNaissance;
 
@@ -35,6 +36,18 @@ class Animal
      * @ORM\OneToOne(targetEntity="App\Entity\CategorieAnimal", cascade={"persist", "remove"})
      */
     private $Categorie;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Utilisateur", inversedBy="animals")
+     */
+    private $maitre;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $image;
+
+    private $file;
 
     public function getId(): ?int
     {
@@ -53,17 +66,23 @@ class Animal
         return $this;
     }
 
-    public function getDateNaissance(): ?\DateTimeInterface
+    /**
+     * @return mixed
+     */
+    public function getDateNaissance()
     {
         return $this->dateNaissance;
     }
 
-    public function setDateNaissance(\DateTimeInterface $dateNaissance): self
+    /**
+     * @param mixed $dateNaissance
+     */
+    public function setDateNaissance($dateNaissance): void
     {
         $this->dateNaissance = $dateNaissance;
-
-        return $this;
     }
+
+
 
     public function getPoids(): ?float
     {
@@ -88,4 +107,46 @@ class Animal
 
         return $this;
     }
+
+    public function getMaitre(): ?Utilisateur
+    {
+        return $this->maitre;
+    }
+
+    public function setMaitre(?Utilisateur $maitre): self
+    {
+        $this->maitre = $maitre;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    /**
+     * @param mixed $file
+     */
+    public function setFile($file): void
+    {
+        $this->file = $file;
+    }
+
+
 }

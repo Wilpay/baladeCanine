@@ -1,0 +1,36 @@
+{% extends('base.html.twig') %}
+{% block title %}{{ parent() }} | Mes animaux{% endblock %}
+{% block body %}
+
+    {% for animal in animaux %}
+    <div class="card mb-3">
+        <div class="row no-gutters">
+            <div class="col-md-4 mt-3">
+                {% if animal.image != null %}
+                    <img src="{{ asset('images/' ~ animal.image)  }}" class="img-thumbnail mx-auto d-block" height="150" width="150">
+                {% else %}
+                    <img src="{{ asset('images/animal.jpg')  }}" class="img-thumbnail mx-auto d-block" height="150" width="150">
+                {% endif %}
+            </div>
+            <div class="col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{ animal.nom }}</h5>
+                    <p class="card-text">Catégorie : {{ animal.Categorie.libelle }}</p>
+                    <div class="row">
+                        <div class="col-6">
+                            <p class="card-text"><small class="text-muted">Né le : {{ animal.dateNaissance|date('d/m/Y') }}</small></p>
+                        </div>
+                        <div class="col-6 text-right">
+                            <button type="button" class="btn btn-outline-dark"><i class="fas fa-arrow-circle-right"></i></button>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+{% endblock %}
