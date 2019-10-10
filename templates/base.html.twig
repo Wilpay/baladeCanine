@@ -64,13 +64,13 @@
                         <li class="nav-item dropdown">
 
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Bienvenue {{ app.user.nom }}
+                                <i class="fas fa-user"></i> Bienvenue {{ app.user.nom }}
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ path('profil') }}">Profil</a>
-                                <a class="dropdown-item" href="{{ path('animal') }}">Ajouter Animaux</a>
-                                <a class="dropdown-item" href="{{ path('mesanimaux') }}">Mes Animaux</a>
-                                <a class="dropdown-item" href="{{ path('deconnexion') }}">Déconnexion</a>
+                                <a class="dropdown-item" href="{{ path('profil') }}"><i class="fas fa-user"></i> Profil</a>
+                                <a class="dropdown-item" href="{{ path('animal') }}"><i class="fas fa-plus-circle"></i> Ajouter Animaux</a>
+                                <a class="dropdown-item" href="{{ path('mesanimaux') }}"><i class="fas fa-paw"></i> Mes Animaux</a>
+                                <a class="dropdown-item" href="{{ path('deconnexion') }}"><i class="fas fa-sign-out-alt"></i> Déconnexion</a>
                             </div>
                         </li>
                     </ul>
