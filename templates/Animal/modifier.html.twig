@@ -5,7 +5,40 @@
 
     <div class="card">
         <div class="card-header">
-            <h1>Modifier animal</h1>
+            <center><h1>Modifier animal</h1></center>
+            {% if profil.image != null %}
+                <img src="{{ asset('images/' ~ profil.image)  }}" class="img-thumbnail mx-auto d-block" height="150" width="150">
+            {% else %}
+                <img src="{{ asset('images/animal.jpg')  }}" class="img-thumbnail mx-auto d-block" height="150" width="150">
+            {% endif %}
+        </div>
+        <div class="card-body">
+            {% for label, messages in app.flashes %}
+                <div class="alert alert-{{ label }}" role="alert">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+            <p class="card-text">
+                {{ form_start(formPhoto) }}
+                {{ form_errors(formPhoto) }}
+            <div class="row mb-2">
+                <div class="font-weight-bold col-12 col-md-4 m-auto">Photo:</div>
+                <div class="col-12 col-md-8">
+                    <div class="input-group">
+                        <div class="custom-file">
+                            {{ form_widget(formPhoto.file, {'attr': {'class': 'custom-file-input', 'accept': 'image/*'}}) }}
+                            <label class="custom-file-label2" for="customFile">Choisir une image</label>
+                        </div>
+                        <div class="input-group-append">
+                            {{ form_widget(formPhoto.submit, {'attr': {'class': 'btn btn-secondary font-weight-bold'}}) }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{ form_end(formPhoto) }}
         </div>
         <div class="card-body">
             <p class="card-text">
@@ -39,13 +72,27 @@
                     {{ form_errors(form.poids) }}
                 </div>
             </div>
+            <div class="row mb-2">
+                <div class="font-weight-bold col-12 col-md-4 m-auto">Caractères:</div>
+                <div class="col-12 col-md-8">
+                    {{ form_widget(form.caracteres) }}
+                    {{ form_errors(form.caracteres) }}
+                </div>
+            </div>
 
 
             {{ form_widget(form.submit, {'attr': {'class': 'btn btn-block btn-success font-weight-bold mt-5'}}, {'label': 'Inscrire'}) }}
+            <a href="{{ path('mesanimaux') }}" class="btn btn-block btn-danger font-weight-bold">Retour</a>
             {{ form_end(form) }}
             </p>
         </div>
     </div>
-
+    <script>
+        $('option').mousedown(function(e) {
+            e.preventDefault();
+            $(this).prop('selected', !$(this).prop('selected'));
+            return false;
+        });
+    </script>
 
 {% endblock %}

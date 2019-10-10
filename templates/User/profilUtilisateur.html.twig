@@ -1,0 +1,67 @@
+{% extends('base.html.twig') %}
+{% block title %}{{ parent() }} | Profil{% endblock %}
+{% block body %}
+
+
+    {% for ami in utilConnecte.amis %}
+        {% if ami == util %}
+            <div class="card text-center">
+                <div class="card-header">
+                    <ul class="nav nav-tabs card-header-tabs">
+                        <li class="nav-item">
+                            <a class="nav-link active" href="{{ path('profilUtil',  {id:util.id}) }}">Profil</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('profilUtilAnim',  {id:util.id}) }}">Animaux</a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="card-body">
+
+                    <div class="card" style="">
+                        {% if util.image != null %}
+                            <img src="{{ asset('images/' ~ util.image)  }}" height="200" width="200" class="rounded mx-auto d-block mt-2">
+                        {% else %}
+                            <img src="{{ asset('images/util.png')  }}"height="200" width="200" class="rounded mx-auto d-block mt-2">
+                        {% endif %}
+                        <div class="card-body">
+                            <h5 class="card-title">{{ util.nom }} {{ util.prenom }}</h5>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Téléphone : {{ util.telephone }}</li>
+                            <li class="list-group-item">Mail : {{ util.mail }}</li>
+                        </ul>
+                        <div class="card-body">
+                            <a href="#" class="card-link">Envoyer message</a>
+                            <a href="#" class="card-link">Publier un message</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        {% else %}
+            <div class="card text-center">
+                <div class="card-header">
+
+                </div>
+                <div class="card-body">
+                    {% if util.image != null %}
+                        <img src="{{ asset('images/' ~ util.image)  }}" height="50" width="50">
+                    {% else %}
+                        <img src="{{ asset('images/util.png')  }}"height="50" width="50">
+                    {% endif %}
+                    <h5 class="card-title">{{ util.nom }} {{ util.prenom }}</h5>
+                    <p class="card-text">Vous ne pouvez pas consulter une personne que vous n'avez pas en ami.</p>
+                    <a href="#" class="btn btn-primary">Ajouter en ami</a>
+                </div>
+            </div>
+
+        {% endif %}
+
+    {% endfor %}
+
+
+
+
+
+{% endblock %}

@@ -2,35 +2,54 @@
 {% block title %}{{ parent() }} | Mes animaux{% endblock %}
 {% block body %}
 
-    {% for animal in animaux %}
-    <div class="card mb-3">
-        <div class="row no-gutters">
-            <div class="col-md-4 mt-3">
-                {% if animal.image != null %}
-                    <img src="{{ asset('images/' ~ animal.image)  }}" class="img-thumbnail mx-auto d-block" height="150" width="150">
-                {% else %}
-                    <img src="{{ asset('images/animal.jpg')  }}" class="img-thumbnail mx-auto d-block" height="150" width="150">
-                {% endif %}
-            </div>
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5 class="card-title">{{ animal.nom }}</h5>
-                    <p class="card-text">Catégorie : {{ animal.Categorie.libelle }}</p>
-                    <div class="row">
-                        <div class="col-6">
-                            <p class="card-text"><small class="text-muted">Né le : {{ animal.dateNaissance|date('d/m/Y') }}</small></p>
-                        </div>
-                        <div class="col-6 text-right">
-                            <a href="{{ path('modifier', {id:animal.id}) }}" ><button type="button" class="btn btn-outline-dark"><i class="fas fa-arrow-circle-right"></i></button></a>
-                        </div>
-                    </div>
-
-
-
-                </div>
+    {% for label, messages in app.flashes %}
+        <div class="alert alert-{{ label }}" role="alert">
+            {% for message in messages %}
+                {{ message }}
+            {% endfor %}
+        </div>
+    {% endfor %}
+    {% if animaux is empty %}
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">Aucun animal enregistré :'( </h1>
+                <p class="lead"></p>
             </div>
         </div>
-    </div>
-{% endfor %}
+    {% else %}
+
+        {% for animal in animaux %}
+            <div class="card mb-3">
+                <div class="row no-gutters">
+                    <div class="col-md-4 mt-3">
+                        {% if animal.image != null %}
+                            <img src="{{ asset('images/' ~ animal.image)  }}" class="img-thumbnail mx-auto d-block" height="150" width="150">
+                        {% else %}
+                            <img src="{{ asset('images/animal.jpg')  }}" class="img-thumbnail mx-auto d-block" height="150" width="150">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ animal.nom }}</h5>
+                            <p class="card-text">Catégorie : {{ animal.Categorie.libelle }}</p>
+                            <div class="row">
+                                <div class="col-6">
+                                    <p class="card-text"><small class="text-muted">Né le : {{ animal.dateNaissance|date('d/m/Y') }}</small></p>
+                                </div>
+                                <div class="col-6 text-right">
+                                    <a href="{{ path('delete', {id:animal.id}) }}" ><button type="button" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i></button></a>
+                                    <a href="{{ path('modifier', {id:animal.id}) }}" ><button type="button" class="btn btn-outline-dark"><i class="fas fa-arrow-circle-right"></i></button></a>
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    {% endif %}
+
 
 {% endblock %}

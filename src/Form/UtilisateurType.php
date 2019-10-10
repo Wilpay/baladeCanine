@@ -23,13 +23,14 @@ class UtilisateurType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('sexe', EntityType::class, array(
+            ->add('sexes', EntityType::class, array(
                 'class' => Sexe::class,
                 'query_builder' => function (EntityRepository $er) {
                     return $er->createQueryBuilder('s')
                         ->orderBy('s.nature', 'ASC');
                 },
-                'choice_label' => 'nature'
+                'choice_label' => 'nature',
+                'multiple' => false,
             ))
             ->add('nom', TextType::class)
             ->add('prenom', TextType::class)

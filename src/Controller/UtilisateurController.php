@@ -4,6 +4,7 @@
 namespace App\Controller;
 
 
+use App\Entity\Animal;
 use App\Entity\Profil;
 use App\Entity\Utilisateur;
 use App\Form\ProfilType;
@@ -135,6 +136,7 @@ class UtilisateurController extends Controller
                     $this->getParameter('download_dir'),
                     $filename
                 );
+                $util->setImage($filename);
                 $em->persist($profil);
                 $em->flush();
                 $this->addFlash('success', 'Profil modifié');
@@ -146,6 +148,33 @@ class UtilisateurController extends Controller
             'formPhoto' => $formPhoto->createView(),
             'utilisateur' => $user,
             'profil' => $profil,
+        ]);
+    }
+
+    /**
+     * @Route("/profil/{id}", name="profilUtil")
+     */
+    public function ProfilUtilisateur(Request $request, EntityManagerInterface $em, UserPasswordEncoderInterface $encoder, $id) {
+
+        $util = $em->getRepository(Utilisateur::class)->find($id);
+        $utilConnecte = $this->getUser();
+
+        return $this->render('User/profilUtilisateur.html.twig', [
+            'util' => $util,
+            'utilConnecte' => $utilConnecte
+        ]);
+    }
+
+
+    /**
+     * @Route("/profil/animal/{id}", name="profilUtilAnim")
+     */
+    public function ProfilUtilisateurAnimaux(Request $request, EntityManagerInterface $em, $id) {
+
+        $util = $em->getRepository(Utilisateur::class)->find($id);
+
+        return $this->render('User/ProfUtilAnimaux.html.twig', [
+            'util' => $util,
         ]);
     }
 

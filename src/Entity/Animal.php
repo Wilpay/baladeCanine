@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints\Date;
 
@@ -49,6 +51,17 @@ class Animal
      * @ORM\ManyToOne(targetEntity="App\Entity\CategorieAnimal", inversedBy="animals")
      */
     private $categorie;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Caractere", inversedBy="animals")
+     */
+    private $caracteres;
+
+
+    public function __construct()
+    {
+        $this->caracteres = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -149,6 +162,34 @@ class Animal
 
         return $this;
     }
+
+    /**
+     * @return Collection|Caractere[]
+     */
+    public function getCaracteres(): Collection
+    {
+        return $this->caracteres;
+    }
+
+    public function addCaractere(Caractere $caractere): self
+    {
+        if (!$this->caracteres->contains($caractere)) {
+            $this->caracteres[] = $caractere;
+        }
+
+        return $this;
+    }
+
+    public function removeCaractere(Caractere $caractere): self
+    {
+        if ($this->caracteres->contains($caractere)) {
+            $this->caracteres->removeElement($caractere);
+        }
+
+        return $this;
+    }
+
+
 
 
 }

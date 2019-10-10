@@ -13,14 +13,14 @@
 
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.10.1/css/all.css">
     {% endblock %}
-    <link rel="icon" href="{{ asset("images/logo.png") }}" />
+    <link rel="icon" href="{{ asset('/images/logo.png') }}" />
 </head>
 <body>
 {% block menu %}
     <!--  Si utilisateur connecté -->
     {% if app.user %}
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
-            <a class="navbar-brand" href="{{ path('home') }}"><img src="images/logo.png" width="50" height="50"></a>
+            <a class="navbar-brand" href="{{ path('home') }}"><img src="{{ asset('/images/logo.png') }}" width="50" height="50"></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -178,6 +178,13 @@
 <div class="mt-5 container">
     {% block body %}{% endblock %}
 </div>
+<!--{% block footer %}
+<footer>
 
+    <nav class="navbar navbar-light bg-light">
+        <img src="{{ asset('/images/logo.png') }}" width="30" height="30" alt=""><center>&copy; 2019 BaladeCanine.com</center>
+    </nav>
+</footer>
+{% endblock %}-->
 </body>
 </html>

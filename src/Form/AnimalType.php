@@ -4,6 +4,7 @@
 namespace App\Form;
 
 use App\Entity\Animal;
+use App\Entity\Caractere;
 use App\Entity\CategorieAnimal;
 use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
@@ -40,28 +41,19 @@ class AnimalType extends AbstractType
             ->add('poids', NumberType::class, [
                 "label_format" => "Poids"
             ])
+            ->add('caracteres', EntityType::class, array(
+                'class' => Caractere::class,
+                'multiple' => true,
+                'choice_label' => 'libelle',
+                'query_builder' => function (EntityRepository $er) {
+                    return $er->createQueryBuilder('s')
+                        ->orderBy('s.libelle', 'ASC');
+                },
+
+            ))
+
             ->add('submit', SubmitType::class, array(
                 'label' => 'Valider'))
-            //->add('etat', null, ["label_format" => "Etat de la sortie"])
-            //->add('lieu', EntityType::class, array(
-            //    "label_format" => "Lieu",
-            //    'class' => Lieu::class,
-            //Attribut utilisé pour l'affichage
-            //    'choice_label' => 'nom'
-            //))
-            //->add('ville', EntityType::class, array(
-            //    "label_format" => "ville",
-            //    'class' => Ville::class,
-            //Attribut utilisé pour l'affichage
-            //    'choice_label' => 'nom',
-            //Fait une requête particulière
-            //    'query_builder' => function (EntityRepository $er) {
-            //        return $er->createQueryBuilder('c')
-            //            ->orderBy('c.nom', 'ASC');
-            //    }
-            //))
-            //->add('organisateur', EntityType::class, ["label_format" => "Etat",'class' => Ville::class,'choice_label' => 'libelle'])
-            //->add('etat', EntityType::class, ["label_format" => "Etat",'class' => Etat::class,'choice_label' => 'libelle'])
         ;
     }
 

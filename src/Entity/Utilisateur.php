@@ -85,10 +85,7 @@ class Utilisateur implements UserInterface
      */
     private $prenium;
 
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Sexe", cascade={"persist", "remove"})
-     */
-    private $sexe;
+
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Animal", mappedBy="maitre")
@@ -100,10 +97,38 @@ class Utilisateur implements UserInterface
      */
     private $sorties;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Utilisateur", inversedBy="utilisateurs")
+     */
+    private $amis;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Utilisateur", mappedBy="amis")
+     */
+    private $utilisateurs;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Sexe", inversedBy="utilisateurs")
+     */
+    private $sexes;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $image;
+
+
+
+
+
+
+
     public function __construct()
     {
         $this->animals = new ArrayCollection();
         $this->sorties = new ArrayCollection();
+        $this->amis = new ArrayCollection();
+        $this->utilisateurs = new ArrayCollection();
     }
 
 
@@ -302,17 +327,6 @@ class Utilisateur implements UserInterface
         return $this;
     }
 
-    public function getSexe(): ?Sexe
-    {
-        return $this->sexe;
-    }
-
-    public function setSexe(?Sexe $sexe): self
-    {
-        $this->sexe = $sexe;
-
-        return $this;
-    }
 
     /**
      * @return Collection|Animal[]
@@ -372,5 +386,91 @@ class Utilisateur implements UserInterface
 
         return $this;
     }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getAmis(): Collection
+    {
+        return $this->amis;
+    }
+
+    public function addAmi(self $ami): self
+    {
+        if (!$this->amis->contains($ami)) {
+            $this->amis[] = $ami;
+        }
+
+        return $this;
+    }
+
+    public function removeAmi(self $ami): self
+    {
+        if ($this->amis->contains($ami)) {
+            $this->amis->removeElement($ami);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|self[]
+     */
+    public function getUtilisateurs(): Collection
+    {
+        return $this->utilisateurs;
+    }
+
+    public function addUtilisateur(self $utilisateur): self
+    {
+        if (!$this->utilisateurs->contains($utilisateur)) {
+            $this->utilisateurs[] = $utilisateur;
+            $utilisateur->addAmi($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUtilisateur(self $utilisateur): self
+    {
+        if ($this->utilisateurs->contains($utilisateur)) {
+            $this->utilisateurs->removeElement($utilisateur);
+            $utilisateur->removeAmi($this);
+        }
+
+        return $this;
+    }
+
+    public function getSexes(): ?Sexe
+    {
+        return $this->sexes;
+    }
+
+    public function setSexes(?Sexe $sexes): self
+    {
+        $this->sexes = $sexes;
+
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(string $image): self
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+
+
+
+
+
+
+
     
 }

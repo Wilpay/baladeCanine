@@ -2,29 +2,19 @@
 {% block title %}{{ parent() }} | Profil{% endblock %}
 {% block body %}
 
+<div class="row">
 
+    <div class="col-sm">
     <div class="card">
-        <div class="card-header">
-
-            <center><h1>Profil</h1></center>
-            {% if not profil is empty %}
-                <img src="{{ asset('images/' ~ profil.image)  }}" class="img-thumbnail mx-auto d-block" height="150" width="150">
-            {% else %}
-                <img src="{{ asset('images/util.png')  }}" class="img-thumbnail mx-auto d-block" height="150" width="150">
-            {% endif %}
-        </div>
+        {% if not profil is empty %}
+            <img src="{{ asset('images/' ~ profil.image)  }}" class="img-thumbnail mx-auto d-block mt-2" height="150" width="150">
+        {% else %}
+            <img src="{{ asset('images/util.png')  }}" class="img-thumbnail mx-auto d-block" height="150" width="150">
+        {% endif %}
         <div class="card-body">
-            {% for label, messages in app.flashes %}
-                <div class="alert alert-{{ label }}" role="alert">
-                    {% for message in messages %}
-                        {{ message }}
-                    {% endfor %}
-                </div>
-            {% endfor %}
-
-            <p class="card-text">
-                {{ form_start(formPhoto) }}
-                {{ form_errors(formPhoto) }}
+            <h5 class="card-title"><center>{{ utilisateur.nom }} {{ utilisateur.prenom }}</center></h5>
+            {{ form_start(formPhoto) }}
+            {{ form_errors(formPhoto) }}
             <div class="row mb-2">
                 <div class="font-weight-bold col-12 col-md-4 m-auto">Photo:</div>
                 <div class="col-12 col-md-8">
@@ -40,13 +30,57 @@
                 </div>
             </div>
             {{ form_end(formPhoto) }}
-                {{ form_start(form) }}
-                {{ form_errors(form) }}
+        </div>
+    </div>
+        <div class="card mt-3">
+            <h1 class="card-title"><center>Mes Amis : {{ utilisateur.amis.count }}</center></h1>
+            <ul class="list-group">
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    Demande d'amis
+                    <span class="badge badge-primary badge-pill">0</span>
+                </li>
+            </ul>
+            <div class="card-body">
+                {% for util in utilisateur.amis %}
+                <div class="list-group">
+                    <a href="{{ path('profilUtil',  {id:util.id}) }}" class="list-group-item list-group-item-action" tabindex="-1" aria-disabled="true">
+                        {% if util.image != null %}
+                            <img src="{{ asset('images/' ~ util.image)  }}" height="25" width="25">{{ util.nom }} {{ util.prenom }}
+                        {% else %}
+                            <img src="{{ asset('images/util.png')  }}"height="25" width="25"> {{ util.nom }} {{ util.prenom }}
+                        {% endif %}
+                    </a>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    <div class="col-sm">
+
+    <div class="card">
+        <div class="card-header">
+
+            <center><h1>Profil</h1></center>
+
+        </div>
+        <div class="card-body">
+            {% for label, messages in app.flashes %}
+                <div class="alert alert-{{ label }}" role="alert">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+            {% endfor %}
+
+            <p class="card-text">
+
+            {{ form_start(form) }}
+            {{ form_errors(form) }}
             <div class="row mb-2">
                 <div class="font-weight-bold col-12 col-md-4 m-auto">Civilité:</div>
                 <div class="col-12 col-md-8">
-                    {{ form_widget(form.sexe) }}
-                    {{ form_errors(form.sexe) }}
+                    {{ form_widget(form.sexes) }}
+                    {{ form_errors(form.sexes) }}
                 </div>
             </div>
             <div class="row mb-2">
@@ -118,6 +152,9 @@
             </p>
         </div>
     </div>
+    </div>
+    </div>
+
 
 
 {% endblock %}
